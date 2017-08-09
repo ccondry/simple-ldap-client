@@ -1,3 +1,4 @@
+'use strict'
 const ldap = require('ldapjs')
 const ldapChanges = require('./changes')
 const utils = require('./utils')
