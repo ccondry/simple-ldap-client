@@ -1,0 +1,26 @@
+{
+  "name": "ldap-client",
+  "version": "0.1.0",
+  "description": "Wrapper library for common operations in ldapjs ",
+  "main": "NODE_EXTRA_CA_CERTS=/temp/dcloud-ad1-ca.crt index.js",
+  "scripts": {
+    "start": "NODE_EXTRA_CA_CERTS=/temp/dcloud-ad1-ca.crt index.js",
+    "test": "NODE_EXTRA_CA_CERTS=/temp/dcloud-ad1-ca.crt mocha --timeout 4000 --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/ccondry/ldap-client.git"
+  },
+  "keywords": [
+    "ldap"
+  ],
+  "author": "Coty Condry <ccondry@cisco.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/ccondry/ldap-client/issues"
+  },
+  "homepage": "https://gitlab.com/ccondry/ldap-client#README",
+  "dependencies": {
+    "ldapjs": "^1.0.1"
+  }
+}
