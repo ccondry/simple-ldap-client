@@ -1,16 +1,17 @@
 'use strict'
 // #NODE_EXTRA_CA_CERTS=/temp/dcloud-ad1-ca.crt
 const ldapClient = require('../index.js')
+const config = require('./test.config.js')
 
 describe(`Test LDAP operations`, () => {
   // init client
-  let ldap = new ldapClient('ldaps://ad1.dcloud.cisco.com:636/', 'DC=dcloud,DC=cisco,DC=com')
+  let ldap = new ldapClient(config.url, config.baseDn)
 
   it('should successfully authenticate the test user', function(done) {
     // attempt authentication
     ldap.authenticate({
-      upn: 'sjeffers@dcloud.cisco.com',
-      password: 'C1sco12345'
+      upn: config.upn,
+      password: config.password
     })
     .then(rsp => {
       done()
@@ -22,10 +23,10 @@ describe(`Test LDAP operations`, () => {
 
   it(`should successfully reset the test user's password by username`, function(done) {
     ldap.resetPassword({
-      adminDn: 'administrator@dcloud.cisco.com',
-      adminPassword: 'C1sco12345',
-      username: 'sjeffers',
-      newPassword: 'C1sco12345'
+      adminDn: config.adminDn,
+      adminPassword: config.adminPassword,
+      username: config.username,
+      newPassword: config.password
     })
     .then(rsp => {
       done()
@@ -37,9 +38,9 @@ describe(`Test LDAP operations`, () => {
 
   it(`should successfully change the test user's password`, function(done) {
     ldap.changePassword({
-      upn: 'sjeffers@dcloud.cisco.com',
-      currentPassword: 'C1sco12345',
-      newPassword: 'C1sco12345'
+      upn: config.upn,
+      currentPassword: config.password,
+      newPassword: config.password
     })
     .then(rsp => {
       done()
