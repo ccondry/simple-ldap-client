@@ -5,6 +5,7 @@ const ldapChanges = require('./changes')
 const _resetPassword = require('./resetPassword')
 const _changePassword = require('./changePassword')
 const _authenticate = require ('./authenticate')
+const _getUser = require ('./getUser')
 
 module.exports = class ldapClient {
   constructor (url, baseDn) {
@@ -28,5 +29,9 @@ module.exports = class ldapClient {
 
   authenticate (params) {
     return _authenticate.call(this, params)
+  }
+
+  getUser (params) {
+    return _getUser.call(this, params)
   }
 }

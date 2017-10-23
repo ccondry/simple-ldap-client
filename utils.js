@@ -1,3 +1,23 @@
+function getUser(baseDn, opts) {
+  return new Promise((resolve, reject) => {
+    // find the user
+    this.client.search(baseDn, opts, (err, search) => {
+      if (err) {
+        console.log(err)
+        reject(err)
+      }
+      search.on('searchEntry', (entry) => {
+        resolve(entry.object)
+      })
+      search.on('end', (result) => {
+        // console.log('search.on end result = ', result)
+        // resolve()
+        // client.unbind()
+      })
+    })
+  })
+}
+
 function applyChanges(baseDn, opts, changes) {
   return new Promise((resolve, reject) => {
     // find the user and modify their password
@@ -47,6 +67,7 @@ function findByUpnOptions(upn) {
 }
 
 module.exports = {
+  getUser,
   applyChanges,
   findByUsernameOptions,
   findByUpnOptions
