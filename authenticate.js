@@ -8,12 +8,15 @@ function authenticate ({ upn, password }) {
     if (!upn || upn === '') reject('upn is required')
     if (!password || password === '') reject('password is required')
 
+    const client = this.getClient()
     // bind LDAP client
-    this.client.bind(upn, password, (err) => {
+    client.bind(upn, password, (err) => {
       // console.log('bind complete')
       if (err) {
+        client.destroy()
         reject(err)
       } else {
+        client.destroy()
         resolve()
       }
     })
