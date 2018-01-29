@@ -5,7 +5,8 @@
   "main": "NODE_EXTRA_CA_CERTS=/temp/dcloud-ad1-ca.crt index.js",
   "scripts": {
     "start": "NODE_EXTRA_CA_CERTS=/temp/dcloud-ad1-ca.crt index.js",
-    "test": "NODE_EXTRA_CA_CERTS=/temp/dcloud-ad1-ca.crt mocha --timeout 4000 --reporter spec"
+    "test": "NODE_EXTRA_CA_CERTS=/temp/dcloud-ad1-ca.crt mocha --timeout 4000 --reporter spec",
+    "test2": "NODE_EXTRA_CA_CERTS=/temp/dcloud-ad1-ca.crt node test.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,6 @@
   },
   "homepage": "https://gitlab.com/ccondry/ldap-client#README",
   "dependencies": {
-    "ldapjs": "^1.0.1"
+    "ldapjs": "^1.0.2"
   }
 }
