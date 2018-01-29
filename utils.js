@@ -28,7 +28,7 @@ function applyChanges(client, baseDn, opts, changes) {
       }
       search.on('searchEntry', (entry) => {
         var user = entry.object
-        this.client.modify(user.dn, changes, (err) => {
+        client.modify(user.dn, changes, (err) => {
           if (err) {
             // failed to change password
             console.log(err.code)
