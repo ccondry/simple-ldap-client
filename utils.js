@@ -1,7 +1,7 @@
-function getUser(baseDn, opts) {
+function getUser(client, baseDn, opts) {
   return new Promise((resolve, reject) => {
     // find the user
-    this.client.search(baseDn, opts, (err, search) => {
+    client.search(baseDn, opts, (err, search) => {
       if (err) {
         console.log(err)
         reject(err)
@@ -18,10 +18,10 @@ function getUser(baseDn, opts) {
   })
 }
 
-function applyChanges(baseDn, opts, changes) {
+function applyChanges(client, baseDn, opts, changes) {
   return new Promise((resolve, reject) => {
     // find the user and modify their password
-    this.client.search(baseDn, opts, (err, search) => {
+    client.search(baseDn, opts, (err, search) => {
       if (err) {
         console.log(err)
         reject(err)

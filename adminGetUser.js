@@ -1,19 +1,21 @@
 'use strict'
 const utils = require('./utils')
 
-function getUser ({ upn, password, attributes }) {
+module.exports = function ({ adminDn, adminPassword, upn, attributes }) {
   return new Promise((resolve, reject) => {
     // validate input
     if (
       (!upn || upn === '') &&
-      (!password || password === '')
+      (!adminDn || adminDn === '') &&
+      (!adminPassword || adminPassword === '') &&
+      (!attributes || attributes === '')
     ) {
       // inform user the error of their ways
-      reject('upn, and password are required')
+      reject('adminDn, adminPassword, upn, and attributes are required')
     }
     const client = this.getClient()
     // login to LDAP
-    client.bind(upn, password, async (err) => {
+    client.bind(adminDn, adminPassword, async (err) => {
       // console.log('ldap client bind')
       if (err) {
         console.log(err)
@@ -40,5 +42,3 @@ function getUser ({ upn, password, attributes }) {
     })
   })
 }
-
-module.exports = getUser

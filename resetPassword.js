@@ -3,7 +3,7 @@ const ldap = require('ldapjs')
 const ldapChanges = require('./changes')
 const utils = require('./utils')
 
-function resetPassword ({ adminDn, adminPassword, newPassword, userDn, upn, username, email }) {
+function resetPassword ({adminDn, adminPassword, newPassword, userDn, upn, username, email}) {
   return new Promise((resolve, reject) => {
     // console.log('starting LDAP password reset')
     // validate input
@@ -14,20 +14,22 @@ function resetPassword ({ adminDn, adminPassword, newPassword, userDn, upn, user
       (!email || email === '')
     ) {
       // inform the user of the error of their ways
-      reject('userDn, upn, username, or email is required')
+      return reject('userDn, upn, username, or email is required')
     }
     // continue validating input
     if (!newPassword || newPassword === '') {
       // inform the user of the error of their ways
-      reject('newPassword is required')
+      return reject('newPassword is required')
     }
-    // console.log('attempting LDAP bind...')
+    // create client connection
+    const client = this.getClient()
     // login to LDAP
-    this.client.bind(adminDn, adminPassword, async (err) => {
+    client.bind(adminDn, adminPassword, async (err) => {
       // console.log('ldap client bind')
       if (err) {
-        // console.log(err)
-        reject(err)
+        console.log(err)
+        client.destroy()
+        return reject(err)
       }
       // set up changes to replace user password
       const changes = [ldapChanges.replacePassword(newPassword)]
@@ -50,12 +52,12 @@ function resetPassword ({ adminDn, adminPassword, newPassword, userDn, upn, user
       }
 
       try {
-        const user = await utils.applyChanges.call(this, this.baseDn, opts, changes)
+        const user = await utils.applyChanges.call(this, client, this.baseDn, opts, changes)
         // console.log('Password reset for ' + user.dn)
-        // client.unbind()
+        client.destroy()
         resolve(user)
       } catch (e) {
-        // client.unbind()
+        client.destroy()
         reject(e)
       }
     })

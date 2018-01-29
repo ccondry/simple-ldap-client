@@ -6,17 +6,25 @@ const _resetPassword = require('./resetPassword')
 const _changePassword = require('./changePassword')
 const _authenticate = require ('./authenticate')
 const _getUser = require ('./getUser')
+const _adminGetUser = require ('./adminGetUser')
+const _listUsers = require ('./listUsers')
 
 module.exports = class ldapClient {
   constructor (url, baseDn) {
     // console.log('creating LDAP client')
-    // client connection
-    this.client = ldap.createClient({ url, reconnect: true })
-    this.client.on('error', (err) => {
-      console.warn('LDAP connection terminated on far-end, but it should reconnect.', err);
-    })
+    this.url = url
     this.baseDn = baseDn
     // console.log('LDAP client created.')
+  }
+
+  getClient () {
+    // create client connection
+    const url = this.url
+    const client = ldap.createClient({ url, reconnect: true })
+    client.on('error', (err) => {
+      console.warn('LDAP connection terminated on far-end, but it should reconnect.', err);
+    })
+    return client
   }
 
   resetPassword (params) {
@@ -33,5 +41,13 @@ module.exports = class ldapClient {
 
   getUser (params) {
     return _getUser.call(this, params)
+  }
+
+  adminGetUser (params) {
+    return _adminGetUser.call(this, params)
+  }
+
+  listUsers (params) {
+    return _listUsers.call(this, params)
   }
 }
