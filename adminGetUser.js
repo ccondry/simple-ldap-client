@@ -1,17 +1,25 @@
 'use strict'
 const utils = require('./utils')
 
-module.exports = function ({ adminDn, adminPassword, upn, attributes }) {
+module.exports = function ({ adminDn, adminPassword, userDn, upn, username, email, attributes }) {
   return new Promise((resolve, reject) => {
     // validate input
     if (
-      (!upn || upn === '') &&
       (!adminDn || adminDn === '') &&
       (!adminPassword || adminPassword === '') &&
       (!attributes || attributes === '')
     ) {
       // inform user the error of their ways
-      reject('adminDn, adminPassword, upn, and attributes are required')
+      reject('adminDn, adminPassword, and attributes are required')
+    }
+    if (
+      (!userDn || userDn === '') &&
+      (!upn || upn === '') &&
+      (!username || username === '') &&
+      (!email || email === '')
+    ) {
+      // inform the user of the error of their ways
+      return reject('userDn, upn, username, or email is required')
     }
     const client = this.getClient()
     // login to LDAP
@@ -23,7 +31,16 @@ module.exports = function ({ adminDn, adminPassword, upn, attributes }) {
         reject(err)
       }
       // figure out which filter to use to identify the user
-      const filter = '(userPrincipalName=' + upn + ')'
+      let filter
+      if (username) {
+        filter = '(sAMAccountName=' + username + ')'
+      } else if (email) {
+        filter = '(mail=' + email + ')'
+      } else if (upn) {
+        filter = '(userPrincipalName=' + upn + ')'
+      } else if (userDn) {
+        filter = '(distinguishedName=' + userDn + ')'
+      }
       // find user by filter
       const opts = {
         filter,
