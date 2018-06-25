@@ -8,6 +8,9 @@ const _authenticate = require ('./authenticate')
 const _getUser = require ('./getUser')
 const _adminGetUser = require ('./adminGetUser')
 const _listUsers = require ('./listUsers')
+const _createUser = require ('./createUser')
+const _disableUser = require ('./disableUser')
+const _enableUser = require ('./enableUser')
 
 module.exports = class ldapClient {
   constructor (url, baseDn) {
@@ -49,5 +52,17 @@ module.exports = class ldapClient {
 
   listUsers (params) {
     return _listUsers.call(this, params)
+  }
+
+  createUser (params) {
+    return _createUser.call(this, params)
+  }
+
+  enableUser (params) {
+    return _enableUser.call(this, params)
+  }
+
+  disableUser (params) {
+    return _disableUser.call(this, params)
   }
 }
