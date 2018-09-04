@@ -44,12 +44,15 @@ function createUser (params) {
         givenName: params.firstName,
         sn: params.lastName,
         displayName: commonName,
-        physicalDeliveryOfficeName: String(params.userId) || '',
-        mail: params.email,
+        physicalDeliveryOfficeName: params.physicalDeliveryOfficeName || String(params.userId) || '',
         userPassword: params.password,
         objectClass: ["top", "person", "organizationalPerson", "user"],
         userPrincipalName,
-        telephoneNumber: String(params.userId) ? '41' + String(params.userId) : ''
+        telephoneNumber: params.telephoneNumber || String(params.userId) ? '41' + String(params.userId) : ''
+      }
+      // set email address if it was sent
+      if (params.email) {
+        newUser.mail = params.email
       }
       // create new user
       client.add(entryDN, newUser, (err2, user) => {
