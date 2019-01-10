@@ -10,9 +10,8 @@ function getUser(client, baseDn, opts) {
         resolve(entry.object)
       })
       search.on('end', (result) => {
-        // console.log('search.on end result = ', result)
-        // resolve()
-        // client.unbind()
+        // tell the client we didn't find anything in the search
+        reject(result)
       })
     })
   })
