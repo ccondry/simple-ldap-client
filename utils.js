@@ -11,7 +11,7 @@ function getUser(client, baseDn, opts) {
       })
       search.on('end', (result) => {
         // tell the client we didn't find anything in the search
-        reject('LDAP search found no results')
+        resolve()
       })
     })
   })
