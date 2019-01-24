@@ -1,6 +1,6 @@
 {
   "name": "simple-ldap-client",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "simple wrapper library for common operations in ldapjs",
   "main": "NODE_EXTRA_CA_CERTS=/temp/dcloud-ad1-ca.crt index.js",
   "scripts": {
