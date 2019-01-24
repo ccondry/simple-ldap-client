@@ -48,7 +48,7 @@ function createUser (params) {
         userPassword: params.password,
         objectClass: ["top", "person", "organizationalPerson", "user"],
         userPrincipalName,
-        telephoneNumber: params.telephoneNumber || String(params.userId) ? '41' + String(params.userId) : ''
+        telephoneNumber: params.telephoneNumber || ''
       }
       // set email address if it was sent
       if (params.email) {
