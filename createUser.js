@@ -34,13 +34,13 @@ function createUser (params) {
         return reject(err)
       }
 
-      const commonName = `${params.firstName} ${params.lastName}`
+      const commonName = params.commonName || `${params.firstName} ${params.lastName}`
       const userPrincipalName = `${params.username}@${params.domain}`
       const entryDN = `CN=${commonName},${params.usersDn}`
       const newUser = {
         samAccountName: params.username,
         name: commonName,
-        cn: params.cn || commonName,
+        cn: commonName,
         givenName: params.firstName,
         sn: params.lastName,
         displayName: commonName,
