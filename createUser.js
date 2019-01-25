@@ -40,7 +40,7 @@ function createUser (params) {
       const newUser = {
         samAccountName: params.username,
         name: commonName,
-        cn: commonName,
+        cn: params.cn || commonName,
         givenName: params.firstName,
         sn: params.lastName,
         displayName: commonName,
