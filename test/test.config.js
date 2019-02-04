@@ -3,7 +3,7 @@ module.exports = {
   baseDn: 'DC=dcloud,DC=cisco,DC=com',
   adminDn: 'administrator@dcloud.cisco.com',
   adminPassword: 'C1sco12345',
-  username: 'sjeffers',
-  upn: 'sjeffers@dcloud.cisco.com',
+  username: 'jopeters0325',
+  upn: 'jopeters0325@dcloud.cisco.com',
   password: 'C1sco12345',
 }
