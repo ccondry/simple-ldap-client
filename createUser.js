@@ -54,6 +54,10 @@ function createUser (params) {
       if (params.email) {
         newUser.mail = params.email
       }
+      // set memberOf if it was sent
+      if (params.memberOf) {
+        newUser.memberOf = params.memberOf
+      }
       // create new user
       client.add(entryDN, newUser, (err2, user) => {
         client.destroy()
