@@ -1,12 +1,12 @@
 {
   "name": "simple-ldap-client",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "description": "simple wrapper library for common operations in ldapjs",
   "main": "NODE_EXTRA_CA_CERTS=/temp/dcloud-ad1-ca.crt index.js",
   "scripts": {
-    "start": "NODE_EXTRA_CA_CERTS=/temp/dcloud-ad1-ca.crt index.js",
-    "test": "NODE_EXTRA_CA_CERTS=/temp/dcloud-ad1-ca.crt mocha --timeout 4000 --reporter spec",
-    "test2": "NODE_EXTRA_CA_CERTS=/temp/dcloud-ad1-ca.crt node test.js"
+    "start": "NODE_EXTRA_CA_CERTS=/temp/dcloud-root-ca.crt index.js",
+    "test": "NODE_EXTRA_CA_CERTS=/temp/dcloud-root-ca.crt mocha --timeout 20000 --reporter spec",
+    "test2": "NODE_EXTRA_CA_CERTS=/temp/dcloud-root-ca.crt node test/test2.js"
   },
   "repository": {
     "type": "git",
