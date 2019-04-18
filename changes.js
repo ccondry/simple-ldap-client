@@ -57,5 +57,14 @@ module.exports = {
         userAccountControl: String(UF_ACCOUNTDISABLE)
       }
     })
+  },
+  // add an LDAP member to an LDAP group
+  addMember (dn) {
+    return new ldap.Change({
+      operation: 'add',
+      modification: {
+        member: dn
+      }
+    })
   }
 }
