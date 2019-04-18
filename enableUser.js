@@ -3,7 +3,7 @@ const ldap = require('ldapjs')
 const ldapChanges = require('./changes')
 const utils = require('./utils')
 
-module.exports = function ({adminDn, adminPassword, username, upn, userdn, email}) {
+module.exports = function ({adminDn, adminPassword, username, upn, userDn, email}) {
   return new Promise((resolve, reject) => {
     // create client connection
     const client = this.getClient()
