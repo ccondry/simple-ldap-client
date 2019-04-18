@@ -72,4 +72,22 @@ describe(`Test LDAP operations`, () => {
       done(error)
     })
   })
+
+  it(`should add the test user to the "Demo Admins" group`, function(done) {
+    ldap.addToGroup({
+      adminDn: config.adminDn,
+      adminPassword: config.adminPassword,
+      username: 'jopeters0002',
+      // upn: '',
+      // userDn: '',
+      // email: '',
+      groupDn: 'CN=Demo Admins,CN=Users,DC=dcloud,DC=cisco,DC=com'
+    })
+    .then(rsp => {
+      done()
+    })
+    .catch(error => {
+      done(error)
+    })
+  })
 })

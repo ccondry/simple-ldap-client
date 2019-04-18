@@ -11,6 +11,7 @@ const _listUsers = require ('./listUsers')
 const _createUser = require ('./createUser')
 const _disableUser = require ('./disableUser')
 const _enableUser = require ('./enableUser')
+const _addToGroup = require ('./addToGroup')
 
 module.exports = class ldapClient {
   constructor (url, baseDn) {
@@ -64,5 +65,9 @@ module.exports = class ldapClient {
 
   disableUser (params) {
     return _disableUser.call(this, params)
+  }
+
+  addToGroup (params) {
+    return _addToGroup.call(this, params)
   }
 }
