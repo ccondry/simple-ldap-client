@@ -18,6 +18,7 @@ const UF_DONT_EXPIRE_PASSWD = 0x10000
 const UF_PASSWORD_EXPIRED = 0x800000
 
 module.exports = {
+  // change the password of an LDAP account
   replacePassword (password) {
     return new ldap.Change({
       operation: 'replace',
@@ -27,6 +28,7 @@ module.exports = {
     })
   },
   deletePassword(password) {
+  // remove the password from an LDAP account
     return new ldap.Change({
       operation: 'delete',
       modification: {
@@ -35,6 +37,7 @@ module.exports = {
     })
   },
   addPassword(password) {
+  // set the password for an LDAP account
     return new ldap.Change({
       operation: 'add',
       modification: {
@@ -43,6 +46,7 @@ module.exports = {
     })
   },
   enableUser() {
+  // enable an LDAP account
     return new ldap.Change({
       operation: 'replace',
       modification: {
@@ -51,6 +55,7 @@ module.exports = {
     })
   },
   disableUser() {
+  // disable an LDAP account
     return new ldap.Change({
       operation: 'replace',
       modification: {
