@@ -1,7 +1,25 @@
 'use strict'
 const utils = require('./utils')
+const defaultAttributes = [
+  'objectGUID',
+  'name',
+  'sAMAccountName',
+  'memberOf',
+  'primaryGroupID',
+  'description',
+  'physicalDeliveryOfficeName',
+  'distinguishedName',
+  'mail',
+  'userPrincipalName',
+  'whenChanged',
+  'whenCreated',
+  'givenName',
+  'sn',
+  'telephoneNumber',
+  'userAccountControl'
+]
 
-module.exports = function ({ adminDn, adminPassword, userDn, upn, username, email, attributes }) {
+module.exports = function ({ adminDn, adminPassword, userDn, upn, username, email, attributes = defaultAttributes }) {
   return new Promise((resolve, reject) => {
     // validate input
     if (
