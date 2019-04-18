@@ -27,8 +27,8 @@ module.exports = {
       }
     })
   },
-  deletePassword(password) {
   // remove the password from an LDAP account
+  deletePassword (password) {
     return new ldap.Change({
       operation: 'delete',
       modification: {
@@ -36,8 +36,8 @@ module.exports = {
       }
     })
   },
-  addPassword(password) {
   // set the password for an LDAP account
+  addPassword (password) {
     return new ldap.Change({
       operation: 'add',
       modification: {
@@ -45,8 +45,8 @@ module.exports = {
       }
     })
   },
-  enableUser() {
   // enable an LDAP account
+  enableUser () {
     return new ldap.Change({
       operation: 'replace',
       modification: {
@@ -54,8 +54,8 @@ module.exports = {
       }
     })
   },
-  disableUser() {
   // disable an LDAP account
+  disableUser () {
     return new ldap.Change({
       operation: 'replace',
       modification: {
