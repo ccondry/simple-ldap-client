@@ -1,7 +1,7 @@
 'use strict'
 // ldap library
 const ldap = require('ldapjs')
-const ldapChanges = require('./changes')
+// const ldapChanges = require('./changes')
 const _resetPassword = require('./resetPassword')
 const _changePassword = require('./changePassword')
 const _authenticate = require ('./authenticate')
@@ -12,6 +12,7 @@ const _createUser = require ('./createUser')
 const _disableUser = require ('./disableUser')
 const _enableUser = require ('./enableUser')
 const _addToGroup = require ('./addToGroup')
+const _changeUser = require ('./changeUser')
 
 module.exports = class ldapClient {
   constructor (url, baseDn) {
@@ -69,5 +70,9 @@ module.exports = class ldapClient {
 
   addToGroup (params) {
     return _addToGroup.call(this, params)
+  }
+
+  changeUser (params) {
+    return _changeUser.call(this, params)
   }
 }

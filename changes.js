@@ -18,6 +18,14 @@ const UF_DONT_EXPIRE_PASSWD = 0x10000
 const UF_PASSWORD_EXPIRED = 0x800000
 
 module.exports = {
+  constants: {
+    disabled: UF_ACCOUNTDISABLE,
+    passwordNotRequired: UF_PASSWD_NOTREQD,
+    passwordCantChange: UF_PASSWD_CANT_CHANGE,
+    normalAccount: UF_NORMAL_ACCOUNT,
+    dontExpirePassword: UF_DONT_EXPIRE_PASSWD,
+    passwordExpired: UF_PASSWORD_EXPIRED
+  },
   // change the password of an LDAP account
   replacePassword (password) {
     return new ldap.Change({
@@ -69,6 +77,24 @@ module.exports = {
       operation: 'add',
       modification: {
         member: dn
+      }
+    })
+  },
+  // set password does not expire
+  setPasswordDoesNotExpire () {
+    return new ldap.Change({
+      operation: 'add',
+      modification: {
+        userAccountControl: String(UF_DONT_EXPIRE_PASSWD)
+      }
+    })
+  },
+  // set password can't be changed
+  setPasswordCannotChange () {
+    return new ldap.Change({
+      operation: 'add',
+      modification: {
+        userAccountControl: String(UF_PASSWD_CANT_CHANGE)
       }
     })
   }
