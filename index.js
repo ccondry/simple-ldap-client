@@ -13,6 +13,7 @@ const _disableUser = require ('./disableUser')
 const _enableUser = require ('./enableUser')
 const _addToGroup = require ('./addToGroup')
 const _changeUser = require ('./changeUser')
+const _deleteUser = require ('./deleteUser')
 
 module.exports = class ldapClient {
   constructor (url, baseDn) {
@@ -74,5 +75,9 @@ module.exports = class ldapClient {
 
   changeUser (params) {
     return _changeUser.call(this, params)
+  }
+
+  deleteUser (params) {
+    return _deleteUser.call(this, params)
   }
 }
