@@ -29,7 +29,7 @@ module.exports = class ldapClient {
     const url = this.url
     const tlsOptions = {}
     // allow constructor option to be used for turning off TLS cert validation
-    if (options && options.hasOwnProperty('rejectUnauthorized')) {
+    if (this.options && this.options.hasOwnProperty('rejectUnauthorized')) {
       tlsOptions.rejectUnauthorized = options.rejectUnauthorized
     }
     const client = ldap.createClient({
