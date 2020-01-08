@@ -16,17 +16,27 @@ const _changeUser = require ('./changeUser')
 const _deleteUser = require ('./deleteUser')
 
 module.exports = class ldapClient {
-  constructor (url, baseDn) {
+  constructor (url, baseDn, options) {
     // console.log('creating LDAP client')
     this.url = url
     this.baseDn = baseDn
+    this.options = options
     // console.log('LDAP client created.')
   }
 
   getClient () {
     // create client connection
     const url = this.url
-    const client = ldap.createClient({ url, reconnect: true })
+    const tlsOptions = {}
+    // allow constructor option to be used for turning off TLS cert validation
+    if (options.hasOwnProperty('rejectUnauthorized')) {
+      tlsOptions.rejectUnauthorized = options.rejectUnauthorized
+    }
+    const client = ldap.createClient({
+      url,
+      reconnect: true,
+      tlsOptions
+    })
     client.on('error', (err) => {
       console.warn('LDAP connection terminated on far-end, but it should reconnect.', err);
     })
