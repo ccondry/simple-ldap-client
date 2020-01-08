@@ -23,6 +23,11 @@ function resetPassword ({adminDn, adminPassword, newPassword, userDn, upn, usern
     }
     // create client connection
     const client = this.getClient()
+    // catch LDAP connection errors
+    client.on('connectError', function (err) {
+      console.log('Error connecting to LDAP:', err)
+      reject(err)
+    })
     // login to LDAP
     client.bind(adminDn, adminPassword, async (err) => {
       // console.log('ldap client bind')

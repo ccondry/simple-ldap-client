@@ -40,6 +40,11 @@ module.exports = function ({ adminDn, adminPassword, userDn, upn, username, emai
       return reject('userDn, upn, username, or email is required')
     }
     const client = this.getClient()
+    // catch LDAP connection errors
+    client.on('connectError', function (err) {
+      console.log('Error connecting to LDAP:', err)
+      reject(err)
+    })
     // login to LDAP
     client.bind(adminDn, adminPassword, async (err) => {
       // console.log('ldap client bind')

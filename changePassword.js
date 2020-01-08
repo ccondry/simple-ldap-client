@@ -9,6 +9,11 @@ function changePassword ({ upn, currentPassword, newPassword }) {
     if (!newPassword || newPassword === '') reject('newPassword is required')
 
     const client = this.getClient()
+    // catch LDAP connection errors
+    client.on('connectError', function (err) {
+      console.log('Error connecting to LDAP:', err)
+      reject(err)
+    })
     // our ldap client
     client.bind(upn, currentPassword, async (err) => {
       if (err) {
