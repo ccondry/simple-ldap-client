@@ -15,6 +15,7 @@ function getUser ({ upn, password, attributes }) {
     // catch LDAP connection errors
     client.on('connectError', function (err) {
       console.log('Error connecting to LDAP:', err)
+      reject(err)
     })
     // wait for LDAP to connect
     client.on('setup', function (clt, cb) {
