@@ -1,5 +1,3 @@
-const ldap = require('ldapjs')
-
 module.exports = function ({adminDn, adminPassword, userDn}) {
   return new Promise((resolve, reject) => {
     // create client connection
@@ -10,7 +8,7 @@ module.exports = function ({adminDn, adminPassword, userDn}) {
       reject(err)
     })
     // login to LDAP as admin
-    client.bind(adminDn, adminPassword, async (err) => {
+    client.bind(adminDn, adminPassword, (err) => {
       if (err) {
         // error during bind as admin to LDAP
         console.log(err)
@@ -19,17 +17,21 @@ module.exports = function ({adminDn, adminPassword, userDn}) {
       } else {
         // successfully bind as admin to LDAP
         // delete user by DN
-        client.del(userDn, function (e) {
-          if (e) {
-            // error deleting user
-            client.destroy()
-            reject(e)
-          } else {
-            // successfully deleted user
-            client.destroy()
-            resolve()
-          }
-        })
+        try {
+          client.del(userDn, function (e) {
+            if (e) {
+              // error deleting user
+              client.destroy()
+              reject(e)
+            } else {
+              // successfully deleted user
+              client.destroy()
+              resolve()
+            }
+          })
+        } catch (e) {
+          reject(e)
+        }
       }
     })
   })
